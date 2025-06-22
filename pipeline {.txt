@@ -1,0 +1,36 @@
+pipeline {
+agent any
+
+    triggers{
+	pollSCM(H/5 * * * * *)  //Polls SCM every 5 minutes
+    }
+    stages {
+        stage('Git clone') {
+            steps {
+            git branch: 'main', url: 	'https://github.com/DevSecOpsG/helloworldsimplejavaprogram'
+            }
+        }
+        stage('compile java code'){
+            steps{
+            sh 'javac helloworld.java'
+            }
+        }
+        stage('Run the classfile'){
+            steps{
+            sh 'java Simple'
+            }
+        }
+	stage('build war file'){
+            steps{
+            sh 'mvn package'
+            }  
+        }
+	stage('send email'){
+            steps{
+           mail bcc: 'rjahnav@amazon.com', body: '''If build fails, deveoper fails, and contact @dev team
+POC: vibha''', cc: 'devops@google.com', from: '', replyTo: '', subject: 'Build status', to: 'jyoti@gmail.com'
+            }  
+        }
+	
+    }
+}

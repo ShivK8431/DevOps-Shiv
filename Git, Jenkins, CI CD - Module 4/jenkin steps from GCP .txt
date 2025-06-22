@@ -1,0 +1,47 @@
+install Jenkins on Ubuntu
+------------------------------------------
+install java
+
+#1
+sudo apt update
+sudo apt upgrade -y
+
+#2 
+#JDE to develop and compile the code
+sudo apt install openjdk-17-jdk -y
+
+#JRE to run the code -y to not get y/n promt
+sudo apt install openjdk-17-jre-headless -y
+
+#verify
+java -version 
+
+#3 Add Jenkins repository 'the key'. will not get output. dont worry
+curl -fsSL https://pkg.jenkins.io/debian/jenkins.io-2023.key | sudo tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+
+#4 Add Jenkins repository. will not get output. dont worry
+echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
+
+#Update and install Jenkins
+sudo apt update
+sudo apt install jenkins -y
+
+#5 start jenkins
+sudo systemctl start jenkins
+sudo systemctl enable jenkins
+
+#6  Verify installation and check if Jenkins is running
+sudo systemctl status jenkins
+-----------------------
+Only codes:
+sudo apt update
+sudo apt install openjdk-17-jre-headless
+sudo apt install openjdk-21-jdk -y
+
+curl -fsSL https://pkg.jenkins.io/debian/jenkins.io-2023.key | sudo tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+
+echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
+
+sudo apt update
+sudo apt install jenkins
+sudo systemctl status jenkins

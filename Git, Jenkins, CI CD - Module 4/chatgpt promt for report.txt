@@ -1,0 +1,149 @@
+Create a professional short and smart linkedin article that i have stated learning devops. 
+include all topics i have covered with a 2 line interview level definition of each like git, github, version control, CI/CD tools, jenkins. Also mention limitations/disadvatage of each in just 2 lines for a layman to understand. Also mention the tools and practical works i have done and include steps involved. do add the basic information or knowledge required about a particular topic in short 1 liner.  wherever i mention "learnt or learned" add 1 liner definition or steps of what it is.
+
+i shall mention "tool installed" or "installed" or "tool", mention the tools i installed [in different font or color] as and when i was working and learning so it helps to follow. 
+when i mention "Practical: " - number the practicals i mention like this. and give a uniform unique font and color.
+when i mention "steps" and followed by "," - add arrow key to mention steps
+when i mention "code:" - set a unique font and color to differentiate code
+when i mention "// within code or anywhere" - add note in different font.
+when i mention "error" - add the texts in different font/color.
+
+
+DAY 1 - GIT, git hub: 
+1. definition, git workflow
+Practical: logedin to git hub. First time creation of git repository 
+2. learnt to 'fork' other open source software like vlc, Linux into our git hub repo. 
+difference between clone and fork. code: git clone url
+tool installed:  git for windows
+3. learned basic git commands like git add, commit, pull, push, innit, config, status and basic knowledge in 1 line as to what it does.
+download and installed 
+4. learnt to create repo. code to push the code from local PC to git hub
+
+Practical: Push code to GIT hub using git bash
+
+note: Execute code one by one
+code:
+git config --global user.name "Shiv Kumar"
+git config --global user.email shivkumarvrd@gmail.com
+
+echo "# firstrepo" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/ShivK8431/firstrepo.git
+git push -u origin main
+
+Q: difference between tracked and untracked file: if tracked file is modified, it'll become untracked file and is not yet commit. fix it by git add *
+
+practical: Added a new file in workspace (folder)
+code:
+git add *
+git status
+git commit -m "Add new file"
+git push
+
+DAY 2 - VERSION CONTROL VS
+installed visual studio: VirtualBox-7.1.10-169112-Win
+installed: java jdk-17.0.12_windows-x64_bin
+//java c complies the code
+
+learnt to compile the code from java code to git hub. using jdk file using JDK. JRE [not installing yet].
+open terminal in java and execute code. 
+Practical: Push code to GIT hub using VS java code
+
+DAY 3 - Jenkins, Continuous itegration CI with Jenkins, CD
+1. CI definition, workflow, tradition vs CI, 
+popular CI tools used or ebing used: GitLab CI, jenkins, codeship, bamboo, travis CI.
+2. definition of jenkin, it a centralsied tool and how it can be integrated with for ex: jira, maven etc. and attached with other tools using plugin.
+3. Four approachs to install jenkin? 
+approach 1: installation of jenkin on ubuntu from linux using google cloud
+approach 2: jenkin as deveoper/devops - using oracle 
+approach 3: Run Jenkins with dockerised container 
+approach 4: installation of JENKIN from end user approach
+preactical:
+approach 1: installation of jenkin on ubuntu from linux using google cloud [can do via AWS also, preferred google cloud. aws has limited size machine]. 
+steps to set up my google cloud account. compute engine API, VM instance, name ciserver, Operating system - ubuntu, not minimal, take lts version 24.04 x86/64 noble, 20gb machine, networking tab allow traffic, create. ssh connect, authorise, server connects.
+note: sudo=we become root user, gives admin access.
+-y 
+code:
+$ sudo apt install openjdk-17-jre-headless -y //java is not installed in machine we created.
+
+# Add the key
+curl -fsSL https://pkg.jenkins.io/debian/jenkins.io-2023.key | sudo tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+
+# Add Jenkins repository
+echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
+
+sudo apt update
+sudo apt install Jenkins
+systemctl status jenkins
+
+jenkin will be installed. steps - copy link from external IP, add :8080 paste in browser, 
+//if not opened, disable firewall, firewall policies, allowall under protocols and port or mention 8080 under specified protocol
+jenkin window opens, unlock and get password?, copy red text location, run code 
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+gets password, copy paste in broser jenkin, install suggested plugin, about 100+ plugins will be installed. understood top 10 plugins for interview.
+
+entered credentials - admin.
+IP address is created.
+official link to install Jenkins: https://www.jenkins.io/doc/book/installing/linux/   
+
+
+Learned about job creation and type of jobs - freestyle, pipeline, multiconfig project.
+
+practical:
+learnt to Pull java project code from git via Jenkins.
+steps: new folder [workspace] in pc - java project, right click open git bash in java ws. add new project 'helloworld' chatgpt, wrp for java print hello world in java, VS, create empty file helloworld.java, paste code,
+terminal, complile code: javac helloworld.java //class name and file name should be same.
+// helloworld.class is now an independentent file it can be run in any platform.
+now execute the code: java helloworld
+//this will create a helloworld in github aswell.
+steps: jenkins, item, freestyle proj, description: java compile from git, go to source code management, copy browser link from git, paste in repo URL, save, 
+https://github.com/ShivK8431/helloworldsimplejavaprogram
+build, error, click the build error number, console output, read error description, 'verify repo and branch config'
+master main. source code management,  change master to main, build, success. 
+GIThub=jenkin is integrated and connected.
+Need to configure now. How to compile the git hub code in jenkins?
+code: 
+javac helloworld.java
+java Simple
+
+//Javac <file name>
+//Java <classname>
+put the above code in Jenkins job, config, build step, execute shell (cause we are in linux), save, build, error, console output, 
+error: JAVA C NOT FOUND. 
+open SSH and check javac -> not found
+(WE HAD INSTALLED JRE “sudo apt install openjdk-17-jre-headless”)
+SO NOW INSTALL JDK in SSH - code: sudo apt install openjdk-21-jdk -y
+jenkin pipeline, build, SUCCESS! java code is now compiled. need to execute now in CI
+
+SET UP CI CONFIG NOW 5MIN.
+steps: jenkin, new item, mycijob, freestyle, copy paste git hub repo in repo url, master to main, poll SCM, schedule: * * * * *, add build step, execute shell, add code:
+javac helloworld.java
+java Simple
+save. build now. success. code runs every minute now.
+//when you say "* * * * *" it means "every minute" link for reference: https://crontab.guru/#0_8_1_4_2 
+
+Why * why CI? if you make changes in git hub code, same is complied and executed in Jenkins every 1 minute.
+
+DAY 4 
+approach 2: Jenkin as developer/devops - using oracle 
+
+download jenkins.war file https://updates.jenkins-ci.org/download/war/
+how to run?
+steps: pc, create bin folder, cut paste war file here, pc address bar, cmd, 
+code: java -jar jenkins.war --httpPort=8082
+
+localhost:8082 works now
+
+to get password, go to red location, copy paste in pc address, open via notepad, password paste in browser localhost, Jenkins opens. [password will also be in cmd in middle if you search]
+ 
+practical:
+
+google cloud,  we installation of jenkin on ubuntu from linux using google cloud [can do via AWS also, preferred google cloud. aws has limited size machine]. 
+steps to set up my google cloud account. compute engine API, VM instance, name ciserver, Operating system - ubuntu, not minimal, take lts version 24.04 x86/64 noble, 20gb machine, networking tab allow traffic, create.
+
+
+approach 3: Run Jenkins with dockerised container 
+approach 4: end user approach.
